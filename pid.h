@@ -7,11 +7,12 @@ class Pid
 public:
     Pid();
     ~Pid();
+    void pidTune(float const& kpInp, float const& kiInp, float const& kdInp );
 
     // Setters
-    void setKp(float const& KpInp);
-    void setKi(float const& KiInp);
-    void setKd(float const& KdInp);
+    void setKp(float const& kpInp);
+    void setKi(float const& kiInp);
+    void setKd(float const& kdInp);
     void setTau(float const& tauInp);
     void setOutMin(float const& outMinInp);
     void setOutMax(float const& outMaxInp);

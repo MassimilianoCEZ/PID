@@ -3,14 +3,13 @@
 struct Pid::ReservedData
 {
 public:
-    ReservedData(float KpInp = 0.0, float KiInp = 0.0, float KdInp = 0.0, 
+    ReservedData(float kpInp = 0.0, float kiInp = 0.0, float kdInp = 0.0, 
     float tauInp = 0.0, float outMinInp = 0.0, float outMaxInp = 0.0,
     float intMinInp = 0.0, float intMaxInp = 0.0, float sampleTInp = 0.0,
     float integratorInp = 0.0, float differentiatorInp = 0.0, 
     float prevErrInp = 0.0, float prevMeasurementInp = 0.0, 
     float outputInp = 0.0);
-
-    float Kp, Ki, Kd;
+    float kp, ki, kd;
     float tau;
     float outMin, outMax;
     float integratorMin, integratorMax;
@@ -27,16 +26,23 @@ Pid::Pid()
     this->reserved = std::make_unique<Pid::ReservedData>();
 }
 
-Pid::ReservedData::ReservedData(float KpInp = 0.0, float KiInp = 0.0, float KdInp = 0.0, 
+void Pid::pidTune(float const& kpInp, float const& kiInp, float const& kdInp)
+{
+    setKp(kpInp);
+    setKd(kdInp);
+    setKi(kiInp);
+}
+
+Pid::ReservedData::ReservedData(float kpInp = 0.0, float kiInp = 0.0, float kdInp = 0.0, 
     float tauInp = 0.0, float outMinInp = 0.0, float outMaxInp = 0.0,
     float intMinInp = 0.0, float intMaxInp = 0.0, float sampleTInp = 0.0,
     float integratorInp = 0.0, float differentiatorInp = 0.0, 
     float prevErrInp = 0.0, float prevMeasurementInp = 0.0, 
     float outputInp = 0.0)
 {
-    Kp = KpInp; 
-    Ki = KiInp; 
-    Kd = KdInp; 
+    kp = kpInp; 
+    ki = kiInp; 
+    kd = kdInp; 
     tau = tauInp; 
     outMin = outMinInp; 
     outMax = outMaxInp; 
@@ -53,9 +59,9 @@ Pid::ReservedData::ReservedData(float KpInp = 0.0, float KiInp = 0.0, float KdIn
 
 
 // Setters
-void Pid::setKp(float const& KpInp) { this->reserved->Kp = KpInp; }
-void Pid::setKi(float const& KiInp) { this->reserved->Ki = KiInp; }
-void Pid::setKd(float const& KdInp) { this->reserved->Kd = KdInp; }
+void Pid::setKp(float const& kpInp) { this->reserved->kp = kpInp; }
+void Pid::setKi(float const& KiInp) { this->reserved->ki = KiInp; }
+void Pid::setKd(float const& kdInp) { this->reserved->kd = kdInp; }
 void Pid::setTau(float const& tauInp) { this->reserved->tau = tauInp; }
 void Pid::setOutMin(float const& outMinInp) { this->reserved->outMin = outMinInp; }
 void Pid::setOutMax(float const& outMaxInp) { this->reserved->outMax = outMaxInp; }
@@ -69,9 +75,9 @@ void Pid::setPreviousMeasurement(float const& previousMeasurementInp) { this->re
 void Pid::setOutput(float const& outputInp) { this->reserved->output = outputInp; }
 
 // Getters
-float Pid::getKp() const { return this->reserved->Kp; }
+float Pid::getKp() const { return this->reserved->kp; }
 float Pid::getKi() const { return this->reserved->Ki; }
-float Pid::getKd() const { return this->reserved->Kd; }
+float Pid::getKd() const { return this->reserved->kd; }
 float Pid::getTau() const { return this->reserved->tau; }
 float Pid::getOutMin() const { return this->reserved->outMin; }
 float Pid::getOutMax() const { return this->reserved->outMax; }
